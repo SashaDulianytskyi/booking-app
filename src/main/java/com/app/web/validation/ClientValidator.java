@@ -2,7 +2,7 @@ package com.app.web.validation;
 
 import com.app.data.entity.Client;
 
-import com.app.exception.valid.ClientValidationException;
+import com.app.exception.ValidationException;
 import org.springframework.util.StringUtils;
 
 import java.util.regex.Matcher;
@@ -22,14 +22,14 @@ public class ClientValidator {
 
     private static void validateNotEmptyProperty(Object value, String propertyName) {
         if (value == null || StringUtils.isEmpty(value)) {
-            throw new ClientValidationException(String.format(EMPTY_PROPERTY_EXCEPTION_MESSAGE, propertyName));
+            throw new ValidationException(String.format(EMPTY_PROPERTY_EXCEPTION_MESSAGE, propertyName));
         }
     }
 
     private static void validateWithRegularExpression(Object value, String regex, String propertyName, String exceptionMessage) {
         Matcher matcher = Pattern.compile(regex).matcher(String.valueOf(value));
         if (!matcher.matches()) {
-            throw new ClientValidationException(String.format(REGEX_EXCEPTION_MESSAGE, propertyName, exceptionMessage));
+            throw new ValidationException(String.format(REGEX_EXCEPTION_MESSAGE, propertyName, exceptionMessage));
         }
     }
 

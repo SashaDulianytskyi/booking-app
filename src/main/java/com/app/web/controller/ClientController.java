@@ -50,9 +50,6 @@ public class ClientController {
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Client> update(@RequestBody Client client) {
-        if (client.getId() == null) {
-            throw new NotFoundException("Client ID not found, ID is required for update the data");
-        }
         return new ResponseEntity<>(this.clientService.update(client), HttpStatus.OK);
     }
 

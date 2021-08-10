@@ -1,7 +1,7 @@
 package com.app.web.validation;
 
 import com.app.data.entity.RoomOrder;
-import com.app.exception.valid.OrderValidationException;
+import com.app.exception.ValidationException;
 import org.springframework.util.StringUtils;
 
 public class OrderValidator {
@@ -13,7 +13,7 @@ public class OrderValidator {
 
     private static void validateNotEmptyProperty(Object value, String propertyName) {
         if (value == null || StringUtils.isEmpty(value)) {
-            throw new OrderValidationException(String.format(EMPTY_PROPERTY_EXCEPTION_MESSAGE, propertyName));
+            throw new ValidationException(String.format(EMPTY_PROPERTY_EXCEPTION_MESSAGE, propertyName));
         }
     }
 }

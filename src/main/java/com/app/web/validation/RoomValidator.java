@@ -1,7 +1,7 @@
 package com.app.web.validation;
 
 import com.app.data.entity.Room;
-import com.app.exception.valid.RoomValidationException;
+import com.app.exception.ValidationException;
 import org.springframework.util.StringUtils;
 
 public class RoomValidator {
@@ -17,7 +17,7 @@ public class RoomValidator {
 
     private static void validateNotEmptyProperty(Object value, String propertyName) {
         if (value == null || StringUtils.isEmpty(value)) {
-            throw new RoomValidationException(String.format(EMPTY_PROPERTY_EXCEPTION_MESSAGE, propertyName));
+            throw new ValidationException(String.format(EMPTY_PROPERTY_EXCEPTION_MESSAGE, propertyName));
         }
     }
 }

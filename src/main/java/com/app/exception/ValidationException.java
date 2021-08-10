@@ -1,21 +1,21 @@
-package com.app.exception.valid;
+package com.app.exception;
 
 import com.app.exception.ApplicationGlobalException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.BAD_REQUEST)
-public class ClientValidationException extends ApplicationGlobalException {
+public class ValidationException extends ApplicationGlobalException {
 
-    public ClientValidationException() {
+    public ValidationException() {
         super();
     }
 
-    public ClientValidationException(String message) {
+    public ValidationException(String message) {
         super(message);
     }
 
-    public ClientValidationException(String message, Throwable cause) {
+    public ValidationException(String message, Throwable cause) {
         super(message, cause);
     }
 }
