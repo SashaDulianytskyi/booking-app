@@ -173,7 +173,7 @@ public class ClientControllerIntegrationTest extends ControllerIntegrationTest {
     }
 
     @Test
-    void whenUpdateWithNonExistentIdShouldRespondNotFoundTest() throws Exception {
+    void whenUpdateWithNonExistentIdShouldReturnConflictTest() throws Exception {
         //when-then
         Executable ex = () -> this.mockMvc.perform(put("/clients")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
