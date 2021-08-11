@@ -16,15 +16,25 @@ public class RoomDto {
     private Status status;
     private String renter;
 
+
     public static RoomDto from(Room room) {
+        if (room.getRenter() != null) {
+            return RoomDto.builder()
+                    .number(room.getNumber())
+                    .price(room.getPrice())
+                    .roomType(room.getRoomType())
+                    .totalPlaces(room.getTotalPlaces())
+                    .status(room.getStatus())
+                    .renter(room.getRenter().getName()
+                            + " " + room.getRenter().getLastName())
+                    .build();
+        }
         return RoomDto.builder()
                 .number(room.getNumber())
                 .price(room.getPrice())
                 .roomType(room.getRoomType())
                 .totalPlaces(room.getTotalPlaces())
                 .status(room.getStatus())
-                .renter(room.getRenter().getName()
-                        + " " + room.getRenter().getLastName())
                 .build();
     }
 }

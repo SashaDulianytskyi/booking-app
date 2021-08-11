@@ -24,13 +24,13 @@ public class Room {
     private Long id;
 
     @Column(name = "number", unique = true)
-    private int number;
+    private Integer number;
 
     @Column(name = "total_places")
-    private int totalPlaces;
+    private Integer totalPlaces;
 
     @Column(name = "price")
-    private int price;
+    private Integer price;
 
     @Column(name = "type")
     @Enumerated(EnumType.STRING)
@@ -40,7 +40,7 @@ public class Room {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @ManyToOne(optional = false,fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "renter_id")
     @JsonIgnore
     private Client renter;

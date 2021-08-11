@@ -35,7 +35,7 @@ public class RoomController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Room>> getAll() {
+    public ResponseEntity<List<RoomDto>> getAll() {
         List<RoomDto> roomDtoList = new ArrayList<>();
         this.roomService.findAll().forEach(room -> roomDtoList.add(RoomDto.from(room)));
 
@@ -43,7 +43,7 @@ public class RoomController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
-        return new ResponseEntity<>(roomService.findAll(), HttpStatus.OK);
+        return new ResponseEntity<>(roomDtoList, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -60,9 +60,6 @@ public class RoomController {
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Room> update(@RequestBody Room room) {
-        if (room.getId() == null) {
-            throw new NotFoundException("Room ID not found, ID is required for update the data");
-        }
         return new ResponseEntity<>(roomService.update(room), HttpStatus.OK);
     }
 
@@ -70,13 +67,10 @@ public class RoomController {
     public ResponseEntity<List<RoomDto>> getAllByRenter(@PathVariable Long id) {
         List<RoomDto> rooms = new ArrayList<>();
         this.roomService.findRoomByRenterId(id).forEach(room -> rooms.add(RoomDto.from(room)));
-        if (rooms.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
         return new ResponseEntity<>(rooms, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/available={choice}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/available/{choice}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<RoomDto>> getRoomsByStatus(@PathVariable Boolean choice) {
         List<RoomDto> rooms = new ArrayList<>();
         if (choice) {
