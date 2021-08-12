@@ -16,6 +16,7 @@ import org.springframework.test.context.jdbc.SqlGroup;
 import org.springframework.web.util.NestedServletException;
 
 import java.util.List;
+import java.util.Objects;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -62,7 +63,7 @@ public class RoomControllerIntegrationTest extends ControllerIntegrationTest {
             .build();
 
     @Test
-    void whenCreateRoomShouldRespondCreatedTest() throws Exception {
+    void whenCreateRoomShouldRespondCreatedAndReturnRoomTest() throws Exception {
         Room expected = TEST_ROOM;
 
         //when-then
@@ -81,6 +82,8 @@ public class RoomControllerIntegrationTest extends ControllerIntegrationTest {
         assertEquals(expected.getPrice(), actual.getPrice());
         assertEquals(expected.getStatus(), actual.getStatus());
         assertEquals(expected.getTotalPlaces(), actual.getTotalPlaces());
+
+        assertTrue(Objects.nonNull(actual.getId()) && actual.getId() > 0);
     }
 
     @Test
@@ -275,9 +278,6 @@ public class RoomControllerIntegrationTest extends ControllerIntegrationTest {
                 .andExpect(jsonPath("$[0].price", is(1000)))
                 .andExpect(jsonPath("$[0].roomType", is("APARTMENTS")))
                 .andExpect(jsonPath("$[0].status", is("BOOKED")))
-                .andExpect(jsonPath("$[0].renter", is(TEST_CLIENT.getName() + " " + TEST_CLIENT.getLastName())));;
+                .andExpect(jsonPath("$[0].renter", is(TEST_CLIENT.getName() + " " + TEST_CLIENT.getLastName())));
     }
-
-
-
 }
